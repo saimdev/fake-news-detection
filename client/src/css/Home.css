@@ -1,0 +1,39 @@
+.homepage{
+  background-image: url('../assets/images/Homebg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.homeupload, .fileupload{
+    width: 100%;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1.5rem;
+  }
+  
+
+.fileupload{
+    color: white;
+}
+
+.fileupload::file-selector-button {
+    color: white;
+    padding: .2em .4em;
+    border: none;
+    border-radius: .2em;
+    background-color: black;
+    transition: 0.5s;
+}
+
+  .card-body>button{
+    border: none;
+    border-color: black;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+  
