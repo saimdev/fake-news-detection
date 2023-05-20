@@ -4,7 +4,7 @@ const { spawn } = require('child_process');
 
 
   router.post('/getResult', (req, res) => {
-      const userInput=req.body;
+      const {userInput}=req.body;
       if(!userInput){
         res.status(422).json({error:"Please Fill missing fields"});
       }
