@@ -54,6 +54,7 @@ export function Home(){
       const userInput = document.getElementById("user-input").value;
     console.log(userInput);
     try{
+      setResult('');
         setLoading(true);
         const response = await fetch("/getResult", {
             method: "POST",
