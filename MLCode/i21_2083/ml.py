@@ -252,108 +252,12 @@ for word in vocab:
 
   prob_r = (Realnews_Ni[word] + 1)/(Realnews_vocab_count + V)
   Real_condProb_with_SW[word] = prob_r
-  
-with open('C:\\Users\\saimdev\\Documents\\Fake-Tweets-Detection-master\\Fake-Tweets-Detection-master\\pythonCode\\data\\stopwords-ur.txt', 'r' , encoding='utf-8') as f:
-  stop_words = f.read()
-
-
-FakeNews_list = []
-
-for filename in sorted(glob.glob("C:\\Users\\saimdev\\Documents\\Fake-Tweets-Detection-master\\Fake-Tweets-Detection-master\\pythonCode\\data\\Train\Fake\\*.txt")):
-    with open(filename, 'r', encoding='utf-8') as f:
-      i = f.read()
-
-      sentence = unlp(i)
-      news =  ''
-      for word in sentence:
-        #remove punctuation
-        word = removePunctuation(word)
-        
-        #remove stop words
-        if word not in stop_words:
-          news += word + ' '
-       
-      FakeNews_list.append(news) 
-    f.close()
-
-RealNews_list = []
-
-for filename in sorted(glob.glob("C:\\Users\\saimdev\\Documents\\Fake-Tweets-Detection-master\\Fake-Tweets-Detection-master\\pythonCode\\data\\Train\\Real\\*.txt")):
-    with open(filename, 'r', encoding='utf-8') as f:
-      i = f.read()
-
-      sentence = unlp(i)
-      news =  ''
-      for word in sentence:
-
-        #remove punctuation
-        word = removePunctuation(word)
-
-        #remove stop words
-        if word not in stop_words:
-          news += word + ' '
-       
-      RealNews_list.append(news)  
-    f.close()
-
-AllNews_list =  FakeNews_list + RealNews_list
-
-Allnews = ''
-for news in AllNews_list:
-  Allnews += news
-
-vocab = list(unlp(remove_duplicate_words(Allnews)))
-V = len(vocab)
-
-Fakenews = ''
-for news in FakeNews_list:
-  Fakenews += remove_duplicate_words(news)
-
-Fakenews_vocab_count = len(unlp(Fakenews))
-Fakenews_vocab_count
-
-# %%
-Realnews = ''
-for news in RealNews_list:
-  Realnews += remove_duplicate_words(news)
-
-Realnews_vocab_count = len(unlp(Realnews))
-
-
-
-
-Fakenews_Ni = ''
-for news in FakeNews_list:
-  Fakenews_Ni += remove_duplicate_words(news)
-
-Fakenews_Ni = Counter(words(Fakenews_Ni))
-
-Realnews_Ni = ''
-for news in RealNews_list:
-  Realnews_Ni += remove_duplicate_words(news)
-
-Realnews_Ni = Counter(words(Realnews_Ni))
-
-
-Fake_condProb_without_SW = {}
-Real_condProb_without_SW = {}
-
-for word in vocab:
-  word = str(word)
-
-  prob_fake = (Fakenews_Ni[word] + 1)/(Fakenews_vocab_count + V)
-  Fake_condProb_without_SW[word] = prob_fake
-
-  prob_real = (Realnews_Ni[word] + 1)/(Realnews_vocab_count + V)
-  Real_condProb_without_SW[word] = prob_real
-  
 
 #Binary Naive bayes with stop words
 news = sys.argv[1]
 C = ['real', 'fake']
 score = {}
-nlp = spacy.load("en_core_web_sm")
-doc = nlp(news)
+doc = unlp(news)
 words = [removePunctuation(word) for word in doc]
 
 for c in C:
